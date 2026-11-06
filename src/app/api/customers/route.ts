@@ -10,6 +10,7 @@ const createSchema = z.object({
   email: z.string().email("Enter a valid email").optional().or(z.literal("")),
   company: z.string().optional(),
   address: z.string().optional(),
+  notes: z.string().optional(),
 });
 
 export async function GET(req: NextRequest) {
@@ -51,6 +52,7 @@ export async function POST(req: NextRequest) {
     email: parsed.data.email || undefined,
     company: parsed.data.company,
     address: parsed.data.address,
+    notes: parsed.data.notes,
     totalSpent: 0,
     totalOrders: 0,
     lastOrderAt: null,

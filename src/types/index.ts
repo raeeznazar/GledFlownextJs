@@ -21,6 +21,7 @@ export interface Customer {
   email?: string;
   company?: string;
   address?: string;
+  notes?: string;
   totalSpent: number;
   totalOrders: number;
   lastOrderAt: string | null;

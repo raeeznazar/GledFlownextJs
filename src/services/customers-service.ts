@@ -15,6 +15,7 @@ export interface CreateCustomerInput {
   email?: string;
   company?: string;
   address?: string;
+  notes?: string;
 }
 
 export async function fetchCustomers(query: CustomerQuery = {}) {
