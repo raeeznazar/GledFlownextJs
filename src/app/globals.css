@@ -8,20 +8,21 @@
    ============================================================ */
 
 :root {
-  /* Surface */
+  /* Surface — app canvas is a soft slate tint, cards sit on white */
   --surface-0: #ffffff;
-  --surface-100: #f7f7f8;
-  --surface-200: #eeeef0;
-  --surface-inverse: #18181b;
+  --surface-canvas: #f4f6fa;
+  --surface-100: #f1f5f9;
+  --surface-200: #e2e8f0;
+  --surface-inverse: #1e293b;
 
   /* Border */
-  --border: #e4e4e8;
-  --border-strong: #d3d3d8;
+  --border: #e2e8f0;
+  --border-strong: #cbd5e1;
 
   /* Ink (text) */
-  --ink: #18181b;
-  --ink-muted: #52525b;
-  --ink-faint: #a1a1aa;
+  --ink: #1e293b;
+  --ink-muted: #64748b;
+  --ink-faint: #94a3b8;
 
   /* Brand */
   --brand: #2554e0;
@@ -30,12 +31,12 @@
   --brand-subtle: #eaf0fe;
 
   /* Semantic status */
-  --success: #15803d;
-  --success-bg: #f0fdf4;
+  --success: #10b981;
+  --success-bg: #e6f4ea;
   --warning: #b45309;
   --warning-bg: #fffbeb;
-  --danger: #c0272d;
-  --danger-bg: #fef2f2;
+  --danger: #ef4444;
+  --danger-bg: #fce8e6;
   --info: #0e7490;
   --info-bg: #ecfeff;
 
@@ -68,7 +69,7 @@
   --opacity-overlay-light: 0.15;
 
   /* Semantic aliases used by components/Tailwind theme below */
-  --background: var(--surface-0);
+  --background: var(--surface-canvas);
   --foreground: var(--ink);
   --card: var(--surface-0);
   --card-foreground: var(--ink);
@@ -81,10 +82,11 @@
 
 .dark {
   /* Surface */
-  --surface-0: #141417;
-  --surface-100: #1b1b1f;
-  --surface-200: #27272c;
-  --surface-inverse: #f7f7f8;
+  --surface-0: #1a2030;
+  --surface-canvas: #0f1420;
+  --surface-100: #1b2233;
+  --surface-200: #262f45;
+  --surface-inverse: #f1f5f9;
 
   /* Border */
   --border: #2d2d33;
@@ -115,9 +117,9 @@
   --shadow-sm: 0px 1px 2px 0px rgba(0, 0, 0, 0.4);
   --shadow-md: 0px 8px 24px 0px rgba(0, 0, 0, 0.55);
 
-  --background: var(--surface-0);
+  --background: var(--surface-canvas);
   --foreground: var(--ink);
-  --card: var(--surface-100);
+  --card: var(--surface-0);
   --card-foreground: var(--ink);
   --muted: var(--surface-100);
   --muted-foreground: var(--ink-muted);
@@ -130,6 +132,7 @@
   --font-sans: var(--font-inter);
 
   --color-surface-0: var(--surface-0);
+  --color-surface-canvas: var(--surface-canvas);
   --color-surface-100: var(--surface-100);
   --color-surface-200: var(--surface-200);
   --color-surface-inverse: var(--surface-inverse);
