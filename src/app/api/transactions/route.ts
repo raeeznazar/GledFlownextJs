@@ -42,10 +42,10 @@ export async function GET(req: NextRequest) {
 
   const [field, dir] = sort.startsWith("-") ? [sort.slice(1), -1] : [sort, 1];
   rows.sort((a, b) => {
-    const av = a[field as keyof Transaction];
-    const bv = b[field as keyof Transaction];
+    const av = a[field as keyof Transaction] ?? "";
+    const bv = b[field as keyof Transaction] ?? "";
     if (av === bv) return 0;
-    return (av > bv ? 1 : -1) * dir;
+    return (av > bv ? 1 : -1) * (dir as number);
   });
 
   return paginated(paginate(rows, page, limit));
