@@ -1,0 +1,255 @@
+@import "tailwindcss";
+
+/* ============================================================
+   Business OS Design Tokens
+   Source: Figma "Gled Flow website design" — Design System pages
+   Neutral-first palette, brand accent reserved for one CTA per
+   screen, minimal shadow, 8px spacing rhythm.
+   ============================================================ */
+
+:root {
+  /* Surface */
+  --surface-0: #ffffff;
+  --surface-100: #f7f7f8;
+  --surface-200: #eeeef0;
+  --surface-inverse: #18181b;
+
+  /* Border */
+  --border: #e4e4e8;
+  --border-strong: #d3d3d8;
+
+  /* Ink (text) */
+  --ink: #18181b;
+  --ink-muted: #52525b;
+  --ink-faint: #a1a1aa;
+
+  /* Brand */
+  --brand: #2554e0;
+  --brand-hover: #1c40b3;
+  --brand-ink: #ffffff;
+  --brand-subtle: #eaf0fe;
+
+  /* Semantic status */
+  --success: #15803d;
+  --success-bg: #f0fdf4;
+  --warning: #b45309;
+  --warning-bg: #fffbeb;
+  --danger: #c0272d;
+  --danger-bg: #fef2f2;
+  --info: #0e7490;
+  --info-bg: #ecfeff;
+
+  /* Spacing (8px rhythm, 4px tightest) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  /* Radius */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-full: 999px;
+
+  /* Elevation */
+  --shadow-sm: 0px 1px 2px 0px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0px 8px 24px 0px rgba(0, 0, 0, 0.12);
+
+  /* Opacity */
+  --opacity-disabled: 0.4;
+  --opacity-hover-fill: 0.92;
+  --opacity-overlay: 0.4;
+  --opacity-overlay-light: 0.15;
+
+  /* Semantic aliases used by components/Tailwind theme below */
+  --background: var(--surface-0);
+  --foreground: var(--ink);
+  --card: var(--surface-0);
+  --card-foreground: var(--ink);
+  --muted: var(--surface-100);
+  --muted-foreground: var(--ink-muted);
+  --input: var(--surface-0);
+  --ring: var(--brand);
+  --disabled: var(--surface-200);
+}
+
+.dark {
+  /* Surface */
+  --surface-0: #141417;
+  --surface-100: #1b1b1f;
+  --surface-200: #27272c;
+  --surface-inverse: #f7f7f8;
+
+  /* Border */
+  --border: #2d2d33;
+  --border-strong: #3c3c44;
+
+  /* Ink (text) */
+  --ink: #f4f4f5;
+  --ink-muted: #a1a1aa;
+  --ink-faint: #6b6b74;
+
+  /* Brand */
+  --brand: #5c82ef;
+  --brand-hover: #88a6f4;
+  --brand-ink: #0d1530;
+  --brand-subtle: #1b2a52;
+
+  /* Semantic status */
+  --success: #4ade80;
+  --success-bg: #0f2a1a;
+  --warning: #fbbf24;
+  --warning-bg: #332105;
+  --danger: #f87171;
+  --danger-bg: #330b0d;
+  --info: #22d3ee;
+  --info-bg: #072a30;
+
+  /* Elevation (slightly stronger in dark mode) */
+  --shadow-sm: 0px 1px 2px 0px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0px 8px 24px 0px rgba(0, 0, 0, 0.55);
+
+  --background: var(--surface-0);
+  --foreground: var(--ink);
+  --card: var(--surface-100);
+  --card-foreground: var(--ink);
+  --muted: var(--surface-100);
+  --muted-foreground: var(--ink-muted);
+  --input: var(--surface-100);
+  --ring: var(--brand);
+  --disabled: var(--surface-200);
+}
+
+@theme inline {
+  --font-sans: var(--font-inter);
+
+  --color-surface-0: var(--surface-0);
+  --color-surface-100: var(--surface-100);
+  --color-surface-200: var(--surface-200);
+  --color-surface-inverse: var(--surface-inverse);
+
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-ink-faint: var(--ink-faint);
+
+  --color-brand: var(--brand);
+  --color-brand-hover: var(--brand-hover);
+  --color-brand-ink: var(--brand-ink);
+  --color-brand-subtle: var(--brand-subtle);
+
+  --color-success: var(--success);
+  --color-success-bg: var(--success-bg);
+  --color-warning: var(--warning);
+  --color-warning-bg: var(--warning-bg);
+  --color-danger: var(--danger);
+  --color-danger-bg: var(--danger-bg);
+  --color-info: var(--info);
+  --color-info-bg: var(--info-bg);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-disabled: var(--disabled);
+
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-full: var(--radius-full);
+
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+
+  /* Typography scale */
+  --text-display: 32px;
+  --text-display--line-height: 40px;
+  --text-display--font-weight: 700;
+
+  --text-h1: 28px;
+  --text-h1--line-height: 36px;
+  --text-h1--font-weight: 700;
+
+  --text-h2: 22px;
+  --text-h2--line-height: 30px;
+  --text-h2--font-weight: 600;
+
+  --text-h3: 18px;
+  --text-h3--line-height: 25px;
+  --text-h3--font-weight: 600;
+
+  --text-body: 15px;
+  --text-body--line-height: 23px;
+  --text-body--font-weight: 400;
+
+  --text-body-emphasis: 15px;
+  --text-body-emphasis--line-height: 23px;
+  --text-body-emphasis--font-weight: 500;
+
+  --text-body-sm: 13px;
+  --text-body-sm--line-height: 20px;
+  --text-body-sm--font-weight: 400;
+
+  --text-label: 13px;
+  --text-label--line-height: 18px;
+  --text-label--font-weight: 500;
+
+  --text-button: 14px;
+  --text-button--line-height: 20px;
+  --text-button--font-weight: 600;
+
+  --text-caption: 12px;
+  --text-caption--line-height: 17px;
+  --text-caption--font-weight: 400;
+}
+
+html {
+  color-scheme: light;
+}
+html.dark {
+  color-scheme: dark;
+}
+
+* {
+  border-color: var(--border);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter), "Inter", Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Elegant default focus ring, used across inputs/buttons/links */
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* Thin, calm scrollbars to match the neutral-first aesthetic */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-strong) transparent;
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: var(--radius-full);
+}
