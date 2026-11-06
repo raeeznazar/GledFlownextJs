@@ -35,20 +35,43 @@ export function Sidebar({
           const active = pathname === item.href || pathname?.startsWith(item.href + "/");
           const Icon = item.icon;
           return (
-            <Link
-              key={item.href}
-              href={item.href}
-              onClick={onCloseMobile}
-              className={cn(
-                "flex h-[38px] items-center gap-3 rounded-[var(--radius-sm)] px-3 text-[14px] font-medium transition-colors",
-                active
-                  ? "bg-brand text-brand-ink font-semibold"
-                  : "text-ink hover:bg-surface-100"
+            <div key={item.href} className="flex flex-col gap-0.5">
+              <Link
+                href={item.href}
+                onClick={onCloseMobile}
+                className={cn(
+                  "flex h-[38px] items-center gap-3 rounded-[var(--radius-sm)] px-3 text-[14px] font-medium transition-colors",
+                  active
+                    ? "bg-brand text-brand-ink font-semibold"
+                    : "text-ink hover:bg-surface-100"
+                )}
+              >
+                <Icon className="size-[18px] shrink-0" strokeWidth={2} />
+                <span className="truncate">{item.label}</span>
+              </Link>
+              {item.children && active && (
+                <div className="ml-[30px] flex flex-col gap-0.5 border-l border-border pl-3">
+                  {item.children.map((child) => {
+                    const childActive = pathname === child.href;
+                    return (
+                      <Link
+                        key={child.href}
+                        href={child.href}
+                        onClick={onCloseMobile}
+                        className={cn(
+                          "rounded-[var(--radius-sm)] px-3 py-1.5 text-[13px] font-medium transition-colors",
+                          childActive
+                            ? "bg-brand-subtle text-brand font-semibold"
+                            : "text-ink-muted hover:text-ink"
+                        )}
+                      >
+                        {child.label}
+                      </Link>
+                    );
+                  })}
+                </div>
               )}
-            >
-              <Icon className="size-[18px] shrink-0" strokeWidth={2} />
-              <span className="truncate">{item.label}</span>
-            </Link>
+            </div>
           );
         })}
       </nav>

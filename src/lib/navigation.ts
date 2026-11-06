@@ -11,10 +11,16 @@ import {
   type LucideIcon,
 } from "lucide-react";
 
+export interface NavChild {
+  label: string;
+  href: string;
+}
+
 export interface NavItem {
   label: string;
   href: string;
   icon: LucideIcon;
+  children?: NavChild[];
 }
 
 export const navItems: NavItem[] = [
@@ -22,7 +28,15 @@ export const navItems: NavItem[] = [
   { label: "Transactions", href: "/transactions", icon: Receipt },
   { label: "Customers", href: "/customers", icon: Users },
   { label: "Products & Services", href: "/products", icon: Box },
-  { label: "Analytics", href: "/analytics", icon: BarChart3 },
+  {
+    label: "Analytics",
+    href: "/analytics",
+    icon: BarChart3,
+    children: [
+      { label: "Overview", href: "/analytics" },
+      { label: "Sales", href: "/analytics/sales" },
+    ],
+  },
   { label: "Staff & Access", href: "/staff", icon: UserCheck },
   { label: "Categories", href: "/categories", icon: Tags },
   { label: "Reports", href: "/reports", icon: FileText },
