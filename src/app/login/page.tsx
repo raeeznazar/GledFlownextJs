@@ -79,7 +79,21 @@ export default function LoginPage() {
           }}
         />
         <div className="relative z-10 flex w-[380px] flex-col items-center gap-6 rounded-2xl bg-white p-8 shadow-[0_12px_32px_rgba(0,0,0,0.25)]">
-          <Logo className="scale-125" />
+          <svg
+            width="88"
+            height="88"
+            viewBox="0 0 36 36"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden
+            className="shrink-0"
+          >
+            <rect width="36" height="36" rx="10" fill="var(--brand)" />
+            <path
+              d="M18 9.5C13.86 9.5 10.5 12.86 10.5 17s3.36 7.5 7.5 7.5c3.42 0 6.3-2.3 7.2-5.43H18v-2.7h9.17c.1.59.16 1.2.16 1.83 0 5.6-3.98 9.8-9.33 9.8-5.6 0-10.13-4.53-10.13-10.1S12.4 7.3 18 7.3c2.76 0 5.08 1.01 6.86 2.67l-2 2A6.62 6.62 0 0 0 18 9.5Z"
+              fill="white"
+            />
+          </svg>
           <div className="flex flex-col items-center gap-2 text-center">
             <div className="flex items-center gap-2">
               <span className="text-[20px] font-bold text-[#071126]">Gled Flow</span>
