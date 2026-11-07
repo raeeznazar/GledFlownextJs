@@ -8,6 +8,9 @@
    ============================================================ */
 
 :root {
+  /* Typeface — self-hosted via @fontsource/inter (see layout.tsx) */
+  --font-inter: "Inter", Arial, Helvetica, sans-serif;
+
   /* Surface — app canvas is a soft slate tint, cards sit on white */
   --surface-0: #ffffff;
   --surface-canvas: #f4f6fa;
