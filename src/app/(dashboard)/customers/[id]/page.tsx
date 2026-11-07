@@ -76,9 +76,27 @@ export default function CustomerDetailsPage() {
             {customer.lastOrderAt ? formatDate(customer.lastOrderAt) : "—"}
           </p>
         </div>
-        <div className="flex flex-col gap-2 rounded-[var(--radius-md)] border border-[#fed7aa] bg-[#fff7ed] p-5">
-          <p className="text-body-sm font-medium text-[#c2410c]">Status</p>
-          <p className="text-h2 font-bold text-[#c2410c] capitalize">{customer.status}</p>
+        <div
+          className={`flex flex-col gap-2 rounded-[var(--radius-md)] border p-5 ${
+            customer.status === "active"
+              ? "border-success/20 bg-success-bg"
+              : "border-warning/20 bg-warning-bg"
+          }`}
+        >
+          <p
+            className={`text-body-sm font-medium ${
+              customer.status === "active" ? "text-success" : "text-warning"
+            }`}
+          >
+            Status
+          </p>
+          <p
+            className={`text-h2 font-bold capitalize ${
+              customer.status === "active" ? "text-success" : "text-warning"
+            }`}
+          >
+            {customer.status}
+          </p>
         </div>
       </div>
 
