@@ -1,6 +1,7 @@
 "use client";
 
 import { PageHeader } from "@/components/layout/PageHeader";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
 import { Skeleton } from "@/components/ui/Skeleton";
 import { RevenueTrendChart } from "@/components/features/dashboard/RevenueTrendChart";
 import { useAnalyticsSales } from "@/hooks/use-analytics";
@@ -33,39 +34,49 @@ export default function SalesAnalyticsPage() {
       />
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <div className="flex flex-col gap-2 rounded-[var(--radius-md)] border border-border bg-card p-5">
-          <p className="text-body-sm font-medium text-ink-muted">Total Sales</p>
-          <p className="text-h2 font-bold text-ink">{formatCurrency(data.totalSales)}</p>
-        </div>
-        <div className="flex flex-col gap-2 rounded-[var(--radius-md)] border border-border bg-card p-5">
-          <p className="text-body-sm font-medium text-ink-muted">Total Orders</p>
-          <p className="text-h2 font-bold text-ink">{data.totalOrders}</p>
-        </div>
-        <div className="flex flex-col gap-2 rounded-[var(--radius-md)] border border-border bg-card p-5">
-          <p className="text-body-sm font-medium text-ink-muted">Avg. Order Value</p>
-          <p className="text-h2 font-bold text-ink">{formatCurrency(data.avgOrderValue)}</p>
-        </div>
-        <div className="flex flex-col gap-2 rounded-[var(--radius-md)] border border-border bg-card p-5">
-          <p className="text-body-sm font-medium text-ink-muted">Conversion Rate</p>
-          <p className="text-h2 font-bold text-ink">{data.conversionRate}%</p>
-        </div>
+        <Card>
+          <CardContent className="flex flex-col gap-2 p-5">
+            <p className="text-body-sm font-medium text-ink-muted">Total Sales</p>
+            <p className="text-h2 text-ink">{formatCurrency(data.totalSales)}</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="flex flex-col gap-2 p-5">
+            <p className="text-body-sm font-medium text-ink-muted">Total Orders</p>
+            <p className="text-h2 text-ink">{data.totalOrders}</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="flex flex-col gap-2 p-5">
+            <p className="text-body-sm font-medium text-ink-muted">Avg. Order Value</p>
+            <p className="text-h2 text-ink">{formatCurrency(data.avgOrderValue)}</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="flex flex-col gap-2 p-5">
+            <p className="text-body-sm font-medium text-ink-muted">Conversion Rate</p>
+            <p className="text-h2 text-ink">{data.conversionRate}%</p>
+          </CardContent>
+        </Card>
       </div>
 
-      <div className="flex flex-col gap-6 rounded-[var(--radius-md)] border border-border bg-card p-5">
-        <div className="flex flex-col gap-1">
-          <p className="text-body font-bold text-ink">Sales over time</p>
-          <p className="text-body-sm text-ink-muted">
-            Weekly sales totals for the current month.
-          </p>
-        </div>
-        <div className="h-[160px] w-full">
-          <RevenueTrendChart data={data.weeklySales} />
-        </div>
-      </div>
+      <Card>
+        <CardHeader className="flex-col items-start gap-1">
+          <CardTitle>Sales over time</CardTitle>
+          <p className="text-body-sm text-ink-muted">Weekly sales totals for the current month.</p>
+        </CardHeader>
+        <CardContent>
+          <div className="h-[160px] w-full">
+            <RevenueTrendChart data={data.weeklySales} />
+          </div>
+        </CardContent>
+      </Card>
 
-      <div className="flex flex-col gap-4 rounded-[var(--radius-md)] border border-border bg-card p-5">
-        <p className="text-body font-bold text-ink">Top Customers</p>
-        <div className="flex flex-col gap-4">
+      <Card>
+        <CardHeader>
+          <CardTitle>Top Customers</CardTitle>
+        </CardHeader>
+        <CardContent className="flex flex-col gap-4">
           {data.topCustomers.map((c) => (
             <div key={c.name} className="flex flex-col gap-1.5">
               <div className="flex items-center justify-between text-body-sm">
@@ -82,8 +93,8 @@ export default function SalesAnalyticsPage() {
               </div>
             </div>
           ))}
-        </div>
-      </div>
+        </CardContent>
+      </Card>
     </>
   );
 }

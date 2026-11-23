@@ -1,10 +1,12 @@
 "use client";
 
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Plus, Trash2 } from "lucide-react";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
+import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
 import {
   Table,
   TableBody,
@@ -16,11 +18,13 @@ import {
 import { SkeletonRow } from "@/components/ui/Skeleton";
 import { useCategories, useDeleteCategory } from "@/hooks/use-categories";
 import { formatDate } from "@/lib/utils";
+import type { Category } from "@/types";
 
 export default function CategoriesPage() {
   const router = useRouter();
   const { data: categories, isLoading } = useCategories();
   const deleteCategory = useDeleteCategory();
+  const [pendingDelete, setPendingDelete] = useState<Category | null>(null);
 
   return (
     <>
@@ -81,8 +85,8 @@ export default function CategoriesPage() {
                     <div className="flex justify-end">
                       <button
                         aria-label={`Delete ${c.name}`}
-                        onClick={() => deleteCategory.mutate(c.id)}
-                        className="text-ink-faint hover:text-danger"
+                        onClick={() => setPendingDelete(c)}
+                        className="rounded-[var(--radius-sm)] text-ink-faint transition-colors hover:text-danger focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ring)]"
                       >
                         <Trash2 className="size-4" />
                       </button>
@@ -105,6 +109,18 @@ export default function CategoriesPage() {
         Categories group the income and expense types staff choose from when recording a
         transaction.
       </p>
+
+      <ConfirmDialog
+        open={!!pendingDelete}
+        title={`Delete "${pendingDelete?.name}"?`}
+        description="This can't be undone. Transactions already recorded under this category keep their history."
+        loading={deleteCategory.isPending}
+        onClose={() => setPendingDelete(null)}
+        onConfirm={() => {
+          if (!pendingDelete) return;
+          deleteCategory.mutate(pendingDelete.id, { onSuccess: () => setPendingDelete(null) });
+        }}
+      />
     </>
   );
 }

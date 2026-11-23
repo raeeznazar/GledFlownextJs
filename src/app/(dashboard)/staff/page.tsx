@@ -84,6 +84,7 @@ export default function StaffPage() {
                   <TableCell>
                     <div className="flex justify-end gap-3 text-body-sm font-semibold text-brand">
                       <button
+                        className="rounded-[var(--radius-sm)] transition-colors hover:text-brand-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ring)]"
                         onClick={() =>
                           updateStaff.mutate({
                             id: s.id,
@@ -94,7 +95,12 @@ export default function StaffPage() {
                         {s.status === "active" ? "Suspend" : "Reactivate"}
                       </button>
                       <span className="text-ink-faint">—</span>
-                      <button onClick={() => setPermissionsFor(s)}>Permissions</button>
+                      <button
+                        className="rounded-[var(--radius-sm)] transition-colors hover:text-brand-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ring)]"
+                        onClick={() => setPermissionsFor(s)}
+                      >
+                        Permissions
+                      </button>
                     </div>
                   </TableCell>
                 </TableRow>

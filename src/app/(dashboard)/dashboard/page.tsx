@@ -5,6 +5,7 @@ import { Plus } from "lucide-react";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
+import { SegmentedControl } from "@/components/ui/SegmentedControl";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
 import { SkeletonCard, SkeletonRow } from "@/components/ui/Skeleton";
 import { Table, TableBody, TableCell, TableHead, TableHeadCell, TableRow } from "@/components/ui/Table";
@@ -54,19 +55,15 @@ export default function DashboardPage() {
       <Card>
         <CardHeader>
           <CardTitle>Today&apos;s Transactions</CardTitle>
-          <div className="flex gap-1 rounded-[var(--radius-sm)] bg-surface-100 p-0.5">
-            {(["all", "income", "expense"] as const).map((f) => (
-              <button
-                key={f}
-                onClick={() => setFilter(f)}
-                className={`rounded-[4px] px-3 py-1.5 text-[12px] font-semibold capitalize transition-colors ${
-                  filter === f ? "bg-surface-0 text-ink shadow-sm" : "text-ink-muted"
-                }`}
-              >
-                {f === "all" ? "All" : f === "income" ? "Incomes" : "Expenses"}
-              </button>
-            ))}
-          </div>
+          <SegmentedControl
+            value={filter}
+            onChange={setFilter}
+            options={[
+              { value: "all", label: "All" },
+              { value: "income", label: "Incomes" },
+              { value: "expense", label: "Expenses" },
+            ]}
+          />
         </CardHeader>
         <CardContent className="p-0">
           {isLoading ? (
@@ -156,7 +153,7 @@ export default function DashboardPage() {
           </CardHeader>
           <CardContent className="flex flex-col gap-3">
             {(data?.topProducts ?? []).map((p) => (
-              <div key={p.name} className="flex items-center justify-between text-[14px]">
+              <div key={p.name} className="flex items-center justify-between text-body-sm">
                 <span className="text-ink">{p.name}</span>
                 <span className="font-semibold text-ink">{formatCurrency(p.amount)}</span>
               </div>

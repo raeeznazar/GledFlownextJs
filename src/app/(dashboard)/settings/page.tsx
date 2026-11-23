@@ -7,6 +7,7 @@ import { ComingSoon } from "@/components/layout/ComingSoon";
 import { Avatar } from "@/components/ui/Avatar";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import { useAuthStore } from "@/stores/auth-store";
 
@@ -26,9 +27,11 @@ export default function SettingsPage() {
         description="Manage your account and app preferences."
       />
 
-      <div className="flex flex-col gap-4 rounded-[var(--radius-md)] border border-border bg-card p-6">
-        <p className="text-body font-bold text-ink">Account</p>
-        <div className="flex items-center justify-between">
+      <Card>
+        <CardHeader>
+          <CardTitle>Account</CardTitle>
+        </CardHeader>
+        <CardContent className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Avatar name={user?.name ?? "?"} size="lg" />
             <div className="flex flex-col">
@@ -41,12 +44,14 @@ export default function SettingsPage() {
               {user.role}
             </Badge>
           )}
-        </div>
-      </div>
+        </CardContent>
+      </Card>
 
-      <div className="flex flex-col gap-4 rounded-[var(--radius-md)] border border-border bg-card p-6">
-        <p className="text-body font-bold text-ink">Appearance</p>
-        <div className="flex items-center justify-between">
+      <Card>
+        <CardHeader>
+          <CardTitle>Appearance</CardTitle>
+        </CardHeader>
+        <CardContent className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Moon className="size-4 text-ink-muted" />
             <div className="flex flex-col">
@@ -57,18 +62,20 @@ export default function SettingsPage() {
             </div>
           </div>
           <ThemeToggle />
-        </div>
-      </div>
+        </CardContent>
+      </Card>
 
-      <div className="flex flex-col gap-4 rounded-[var(--radius-md)] border border-border bg-card p-6">
-        <p className="text-body font-bold text-ink">Session</p>
-        <div className="flex items-center justify-between">
+      <Card>
+        <CardHeader>
+          <CardTitle>Session</CardTitle>
+        </CardHeader>
+        <CardContent className="flex items-center justify-between">
           <p className="text-body-sm text-ink-muted">Sign out of Gled Flow on this device.</p>
           <Button variant="outline" leftIcon={<LogOut className="size-4" />} onClick={handleLogout}>
             Log out
           </Button>
-        </div>
-      </div>
+        </CardContent>
+      </Card>
 
       <ComingSoon
         icon={Moon}

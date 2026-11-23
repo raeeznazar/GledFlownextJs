@@ -32,6 +32,8 @@
   --brand-hover: #1c40b3;
   --brand-ink: #ffffff;
   --brand-subtle: #eaf0fe;
+  /* Always-dark brand panel (login hero), independent of light/dark theme */
+  --brand-ink-panel: #071126;
 
   /* Semantic status */
   --success: #10b981;
@@ -151,6 +153,7 @@
   --color-brand-hover: var(--brand-hover);
   --color-brand-ink: var(--brand-ink);
   --color-brand-subtle: var(--brand-subtle);
+  --color-brand-ink-panel: var(--brand-ink-panel);
 
   --color-success: var(--success);
   --color-success-bg: var(--success-bg);

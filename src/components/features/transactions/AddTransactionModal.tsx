@@ -7,7 +7,9 @@ import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Select } from "@/components/ui/Select";
 import { Checkbox } from "@/components/ui/Checkbox";
-import { cn, formatCurrency } from "@/lib/utils";
+import { Label } from "@/components/ui/Label";
+import { SegmentedControl } from "@/components/ui/SegmentedControl";
+import { formatCurrency } from "@/lib/utils";
 import { useCategories } from "@/hooks/use-categories";
 import { useCustomers } from "@/hooks/use-customers";
 import { useCreateTransaction } from "@/hooks/use-transactions";
@@ -109,44 +111,24 @@ export function AddTransactionModal({ open, onClose }: { open: boolean; onClose:
     >
       <div className="flex flex-col gap-5">
         <div className="flex flex-col gap-2">
-          <p className="text-[13px] font-semibold text-ink">What would you like to record?</p>
-          <div className="flex gap-2">
-            {(Object.keys(kindConfig) as EntryKind[]).map((k) => {
+          <Label>What would you like to record?</Label>
+          <SegmentedControl
+            fullWidth
+            value={kind}
+            onChange={setKind}
+            options={(Object.keys(kindConfig) as EntryKind[]).map((k) => {
               const cfg = kindConfig[k];
               const Icon = cfg.icon;
-              const active = kind === k;
-              return (
-                <button
-                  key={k}
-                  type="button"
-                  onClick={() => setKind(k)}
-                  className={cn(
-                    "flex h-[52px] flex-1 items-center gap-2 rounded-[var(--radius-sm)] border p-3 text-left transition-colors",
-                    active ? "border-2 border-brand bg-brand-subtle" : "border-border bg-surface-0 hover:bg-surface-100"
-                  )}
-                >
-                  <span
-                    className={cn(
-                      "flex size-6 shrink-0 items-center justify-center rounded-xl",
-                      active ? "bg-brand text-brand-ink" : "bg-surface-100 text-ink-muted"
-                    )}
-                  >
-                    <Icon className="size-3.5" />
-                  </span>
-                  <span className="flex flex-col leading-tight">
-                    <span className="text-[13px] font-semibold text-ink">{cfg.label}</span>
-                    <span className="text-[10px] text-ink-muted">{cfg.sub}</span>
-                  </span>
-                </button>
-              );
+              return { value: k, label: cfg.label, sublabel: cfg.sub, icon: <Icon className="size-3.5" /> };
             })}
-          </div>
+          />
         </div>
 
         <div className="grid grid-cols-2 gap-3">
           <div className="flex flex-col gap-1.5">
-            <p className="text-[13px] font-semibold text-ink">Category</p>
+            <Label htmlFor="txn-category">Category</Label>
             <Select
+              id="txn-category"
               value={categoryId}
               onChange={(e) => setCategoryId(e.target.value)}
               placeholder="Select category"
@@ -154,8 +136,9 @@ export function AddTransactionModal({ open, onClose }: { open: boolean; onClose:
             />
           </div>
           <div className="flex flex-col gap-1.5">
-            <p className="text-[13px] font-semibold text-ink">Payment Method</p>
+            <Label htmlFor="txn-payment-method">Payment Method</Label>
             <Select
+              id="txn-payment-method"
               value={paymentMethod}
               onChange={(e) => setPaymentMethod(e.target.value)}
               options={[
@@ -169,8 +152,9 @@ export function AddTransactionModal({ open, onClose }: { open: boolean; onClose:
         </div>
 
         <div className="flex flex-col gap-1.5">
-          <p className="text-[13px] font-semibold text-ink">Customer</p>
+          <Label htmlFor="txn-customer">Customer</Label>
           <Select
+            id="txn-customer"
             value={customerId}
             onChange={(e) => {
               setCustomerId(e.target.value);
@@ -180,6 +164,7 @@ export function AddTransactionModal({ open, onClose }: { open: boolean; onClose:
             options={(customersPage?.items ?? []).map((c) => ({ value: c.id, label: c.name }))}
           />
           <Input
+            aria-label="Or type a new customer name"
             placeholder="…or type a new customer name"
             value={customerName}
             onChange={(e) => {
@@ -191,8 +176,9 @@ export function AddTransactionModal({ open, onClose }: { open: boolean; onClose:
 
         <div className="grid grid-cols-2 gap-3">
           <div className="flex flex-col gap-1.5">
-            <p className="text-[13px] font-semibold text-ink">Quantity</p>
+            <Label htmlFor="txn-quantity">Quantity</Label>
             <Input
+              id="txn-quantity"
               type="number"
               min={1}
               value={quantity}
@@ -200,8 +186,9 @@ export function AddTransactionModal({ open, onClose }: { open: boolean; onClose:
             />
           </div>
           <div className="flex flex-col gap-1.5">
-            <p className="text-[13px] font-semibold text-ink">Unit Price</p>
+            <Label htmlFor="txn-unit-price">Unit Price</Label>
             <Input
+              id="txn-unit-price"
               type="number"
               min={0}
               value={unitPrice}
@@ -210,24 +197,27 @@ export function AddTransactionModal({ open, onClose }: { open: boolean; onClose:
           </div>
         </div>
 
-        <div className="flex items-center justify-between rounded-[var(--radius-sm)] bg-warning-bg px-4 py-3">
-          <p className="text-[13px] font-medium text-warning">Total (auto-calculated)</p>
-          <p className="text-[18px] font-extrabold text-ink">{formatCurrency(total)}</p>
+        <div className="flex items-center justify-between rounded-[var(--radius-sm)] bg-brand-subtle px-4 py-3">
+          <p className="text-body-sm font-medium text-brand">Total (auto-calculated)</p>
+          <p className="text-h3 text-ink">{formatCurrency(total)}</p>
         </div>
 
         <div className="flex flex-col gap-1.5">
-          <p className="text-[13px] font-semibold text-ink">Date</p>
-          <Input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
+          <Label htmlFor="txn-date">Date</Label>
+          <Input id="txn-date" type="date" value={date} onChange={(e) => setDate(e.target.value)} />
         </div>
 
         <div className="flex flex-col gap-1.5">
-          <p className="text-[13px] font-semibold text-ink">Remarks (optional)</p>
+          <Label htmlFor="txn-remarks">
+            Remarks <span className="text-ink-faint">(optional)</span>
+          </Label>
           <textarea
+            id="txn-remarks"
             value={remarks}
             onChange={(e) => setRemarks(e.target.value)}
             rows={3}
             placeholder="Add a note about this transaction"
-            className="w-full resize-none rounded-[var(--radius-sm)] border border-border bg-input p-3 text-[13px] text-ink outline-none focus-visible:border-brand focus-visible:ring-2 focus-visible:ring-brand/20"
+            className="w-full resize-none rounded-[var(--radius-sm)] border border-border bg-input p-3 text-body-sm text-ink outline-none focus-visible:border-brand focus-visible:ring-2 focus-visible:ring-brand/20"
           />
         </div>
 

@@ -68,15 +68,14 @@ export default function CustomersPage() {
               <TableHeadCell className="w-[140px] text-right">Total Purchases</TableHeadCell>
               <TableHeadCell className="w-[120px] text-right">Transactions</TableHeadCell>
               <TableHeadCell className="w-[130px]">Last Purchase</TableHeadCell>
-              <TableHeadCell className="w-[110px] text-right">Outstanding</TableHeadCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {isLoading ? (
               Array.from({ length: 6 }).map((_, i) => (
                 <tr key={i}>
-                  <td colSpan={6}>
-                    <SkeletonRow cols={6} />
+                  <td colSpan={5}>
+                    <SkeletonRow cols={5} />
                   </td>
                 </tr>
               ))
@@ -84,8 +83,14 @@ export default function CustomersPage() {
               data.items.map((c) => (
                 <TableRow
                   key={c.id}
-                  className="cursor-pointer"
+                  tabIndex={0}
+                  role="link"
+                  aria-label={`View ${c.name}'s customer details`}
+                  className="cursor-pointer focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-[var(--ring)]"
                   onClick={() => router.push(`/customers/${c.id}`)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") router.push(`/customers/${c.id}`);
+                  }}
                 >
                   <TableCell>
                     <div className="flex items-center gap-3">
@@ -101,12 +106,11 @@ export default function CustomersPage() {
                   <TableCell className="text-ink-muted">
                     {c.lastOrderAt ? formatDate(c.lastOrderAt) : "—"}
                   </TableCell>
-                  <TableCell className="text-right text-ink-muted">—</TableCell>
                 </TableRow>
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={6} className="py-10 text-center text-ink-muted">
+                <TableCell colSpan={5} className="py-10 text-center text-ink-muted">
                   No customers match your search.
                 </TableCell>
               </TableRow>

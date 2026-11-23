@@ -63,7 +63,7 @@ export function PermissionsDrawer({
           <div className="flex items-center gap-3 border-b border-border pb-5">
             <Avatar name={member.name} />
             <div className="flex flex-col">
-              <p className="text-body-sm font-bold text-ink">{member.name}</p>
+              <p className="text-body-sm font-semibold text-ink">{member.name}</p>
               <p className="text-caption capitalize text-ink-muted">{member.role}</p>
             </div>
           </div>
@@ -73,7 +73,7 @@ export function PermissionsDrawer({
           </p>
           {GROUPS.map((group) => (
             <div key={group.title} className="flex flex-col gap-3 border-b border-border pb-5">
-              <p className="text-body-sm font-bold text-ink">{group.title}</p>
+              <p className="text-body-sm font-semibold text-ink">{group.title}</p>
               <div className="flex flex-col gap-2.5">
                 {permissions
                   .filter((p) => group.keys.includes(p.key))

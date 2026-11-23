@@ -15,7 +15,7 @@ export function ComingSoon({
         <Icon className="size-6" />
       </div>
       <div className="flex max-w-[420px] flex-col gap-1.5">
-        <p className="text-h3 font-bold text-ink">{title}</p>
+        <p className="text-h3 text-ink">{title}</p>
         <p className="text-body-sm text-ink-muted">{description}</p>
       </div>
     </div>

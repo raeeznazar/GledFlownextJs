@@ -4,7 +4,13 @@ export function SalesVsExpensesChart({ data }: { data: SalesExpensePoint[] }) {
   const max = Math.max(...data.flatMap((d) => [d.sales, d.expenses]), 1);
 
   return (
-    <div className="flex h-[110px] w-full items-end justify-between gap-2">
+    <div
+      className="flex h-[110px] w-full items-end justify-between gap-2"
+      role="img"
+      aria-label={`Sales versus expenses by period: ${data
+        .map((d) => `${d.label} — sales ${d.sales}, expenses ${d.expenses}`)
+        .join("; ")}`}
+    >
       {data.map((d) => (
         <div key={d.label} className="flex flex-1 flex-col items-center gap-2">
           <div className="flex h-20 items-end gap-1">
@@ -19,7 +25,9 @@ export function SalesVsExpensesChart({ data }: { data: SalesExpensePoint[] }) {
               title={`Expenses: ${d.expenses}`}
             />
           </div>
-          <p className="text-[11px] text-ink-muted">{d.label}</p>
+          <p className="text-caption text-ink-muted" aria-hidden>
+            {d.label}
+          </p>
         </div>
       ))}
     </div>

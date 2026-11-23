@@ -5,6 +5,7 @@ import { ArrowLeft } from "lucide-react";
 import { Avatar } from "@/components/ui/Avatar";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
+import { Card, CardContent } from "@/components/ui/Card";
 import {
   Table,
   TableBody,
@@ -62,65 +63,59 @@ export default function CustomerDetailsPage() {
       </div>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <div className="flex flex-col gap-2 rounded-[var(--radius-md)] border border-border bg-card p-5">
-          <p className="text-body-sm font-medium text-ink-muted">Total Sales</p>
-          <p className="text-h2 font-bold text-ink">{formatCurrency(customer.totalSpent)}</p>
-        </div>
-        <div className="flex flex-col gap-2 rounded-[var(--radius-md)] border border-border bg-card p-5">
-          <p className="text-body-sm font-medium text-ink-muted">Transactions</p>
-          <p className="text-h2 font-bold text-ink">{customer.totalOrders}</p>
-        </div>
-        <div className="flex flex-col gap-2 rounded-[var(--radius-md)] border border-border bg-card p-5">
-          <p className="text-body-sm font-medium text-ink-muted">Last Purchase</p>
-          <p className="text-h2 font-bold text-ink">
-            {customer.lastOrderAt ? formatDate(customer.lastOrderAt) : "—"}
-          </p>
-        </div>
-        <div
-          className={`flex flex-col gap-2 rounded-[var(--radius-md)] border p-5 ${
-            customer.status === "active"
-              ? "border-success/20 bg-success-bg"
-              : "border-warning/20 bg-warning-bg"
-          }`}
-        >
-          <p
-            className={`text-body-sm font-medium ${
-              customer.status === "active" ? "text-success" : "text-warning"
-            }`}
-          >
-            Status
-          </p>
-          <p
-            className={`text-h2 font-bold capitalize ${
-              customer.status === "active" ? "text-success" : "text-warning"
-            }`}
-          >
-            {customer.status}
-          </p>
-        </div>
+        <Card>
+          <CardContent className="flex flex-col gap-2 p-5">
+            <p className="text-body-sm font-medium text-ink-muted">Total Sales</p>
+            <p className="text-h2 text-ink">{formatCurrency(customer.totalSpent)}</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="flex flex-col gap-2 p-5">
+            <p className="text-body-sm font-medium text-ink-muted">Transactions</p>
+            <p className="text-h2 text-ink">{customer.totalOrders}</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="flex flex-col gap-2 p-5">
+            <p className="text-body-sm font-medium text-ink-muted">Last Purchase</p>
+            <p className="text-h2 text-ink">
+              {customer.lastOrderAt ? formatDate(customer.lastOrderAt) : "—"}
+            </p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="flex flex-col gap-2 p-5">
+            <p className="text-body-sm font-medium text-ink-muted">Status</p>
+            <Badge tone={customer.status === "active" ? "success" : "warning"} className="w-fit capitalize">
+              {customer.status}
+            </Badge>
+          </CardContent>
+        </Card>
       </div>
 
-      <div className="flex flex-wrap gap-10 rounded-[var(--radius-md)] border border-border bg-card p-6">
-        <div className="flex flex-col gap-1">
-          <p className="text-[11px] font-normal uppercase text-ink-muted">Phone</p>
-          <p className="text-body-sm font-medium text-ink">{customer.phone}</p>
-        </div>
-        <div className="flex flex-col gap-1">
-          <p className="text-[11px] font-normal uppercase text-ink-muted">Email</p>
-          <p className="text-body-sm font-medium text-ink">{customer.email || "—"}</p>
-        </div>
-        <div className="flex flex-col gap-1">
-          <p className="text-[11px] font-normal uppercase text-ink-muted">Company</p>
-          <p className="text-body-sm font-medium text-ink">{customer.company || "—"}</p>
-        </div>
-        <div className="flex flex-col gap-1">
-          <p className="text-[11px] font-normal uppercase text-ink-muted">Customer Since</p>
-          <p className="text-body-sm font-medium text-ink">{formatDate(customer.createdAt)}</p>
-        </div>
-      </div>
+      <Card>
+        <CardContent className="flex flex-wrap gap-10 p-6">
+          <div className="flex flex-col gap-1">
+            <p className="text-caption uppercase text-ink-muted">Phone</p>
+            <p className="text-body-sm font-medium text-ink">{customer.phone}</p>
+          </div>
+          <div className="flex flex-col gap-1">
+            <p className="text-caption uppercase text-ink-muted">Email</p>
+            <p className="text-body-sm font-medium text-ink">{customer.email || "—"}</p>
+          </div>
+          <div className="flex flex-col gap-1">
+            <p className="text-caption uppercase text-ink-muted">Company</p>
+            <p className="text-body-sm font-medium text-ink">{customer.company || "—"}</p>
+          </div>
+          <div className="flex flex-col gap-1">
+            <p className="text-caption uppercase text-ink-muted">Customer Since</p>
+            <p className="text-body-sm font-medium text-ink">{formatDate(customer.createdAt)}</p>
+          </div>
+        </CardContent>
+      </Card>
 
       <div className="flex flex-col gap-4">
-        <h2 className="text-h3 font-bold text-ink">Transaction History</h2>
+        <h2 className="text-h3 text-ink">Transaction History</h2>
         <div className="bg-card rounded-[var(--radius-md)]">
           <Table>
             <TableHead>

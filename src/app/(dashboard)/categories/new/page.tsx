@@ -5,26 +5,29 @@ import { useRouter } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
+import { Label } from "@/components/ui/Label";
+import { SegmentedControl } from "@/components/ui/SegmentedControl";
+import { cn } from "@/lib/utils";
 import { useCreateCategory } from "@/hooks/use-categories";
 import type { TransactionType } from "@/types";
 
 const SWATCHES = [
-  "#2554e0",
-  "#0e7490",
-  "#15803d",
-  "#b45309",
-  "#ef4444",
-  "#f97316",
-  "#a855f7",
-  "#64748b",
-  "#0ea5e9",
+  { name: "Blue", value: "var(--brand)" },
+  { name: "Teal", value: "var(--info)" },
+  { name: "Green", value: "#15803d" },
+  { name: "Amber", value: "var(--warning)" },
+  { name: "Red", value: "var(--danger)" },
+  { name: "Orange", value: "#f97316" },
+  { name: "Purple", value: "#a855f7" },
+  { name: "Slate", value: "#64748b" },
+  { name: "Sky", value: "#0ea5e9" },
 ];
 
 export default function NewCategoryPage() {
   const router = useRouter();
   const [name, setName] = useState("");
   const [type, setType] = useState<TransactionType>("income");
-  const [color, setColor] = useState(SWATCHES[0]);
+  const [color, setColor] = useState(SWATCHES[0].value);
   const [error, setError] = useState("");
   const createCategory = useCreateCategory();
 
@@ -45,18 +48,16 @@ export default function NewCategoryPage() {
         <button
           onClick={() => router.push("/categories")}
           aria-label="Back to categories"
-          className="flex items-center justify-center rounded-[var(--radius-sm)] border border-border bg-card p-2 text-ink-muted transition-colors hover:text-ink"
+          className="flex items-center justify-center rounded-[var(--radius-full)] border border-border bg-card p-2 text-ink-muted transition-colors hover:text-ink"
         >
-          <ArrowLeft className="size-3.5" />
+          <ArrowLeft className="size-4" />
         </button>
-        <h1 className="text-h2 font-bold text-ink">New Category</h1>
+        <h1 className="text-h2 text-ink">New Category</h1>
       </div>
 
-      <div className="flex w-full max-w-[640px] flex-col gap-6 rounded-[var(--radius-md)] border border-border bg-card p-8">
+      <div className="flex w-full max-w-[640px] flex-col gap-6 rounded-[var(--radius-md)] border border-border bg-card p-6">
         <div className="flex flex-col gap-2">
-          <label className="text-body-sm font-semibold text-ink" htmlFor="category-name">
-            Category name
-          </label>
+          <Label htmlFor="category-name">Category name</Label>
           <Input
             id="category-name"
             placeholder="e.g. Stationery"
@@ -75,40 +76,33 @@ export default function NewCategoryPage() {
         <div className="h-px w-full bg-border" />
 
         <div className="flex flex-col gap-3">
-          <p className="text-body-sm font-semibold text-ink">Type</p>
-          <div className="flex gap-2">
-            {(["income", "expense"] as const).map((t) => (
-              <button
-                key={t}
-                type="button"
-                onClick={() => setType(t)}
-                className={`flex-1 rounded-[var(--radius-sm)] border px-4 py-2.5 text-body-sm font-semibold transition-colors ${
-                  type === t
-                    ? "border-brand bg-brand-subtle text-brand"
-                    : "border-border bg-input text-ink-muted hover:text-ink"
-                }`}
-              >
-                {t === "income" ? "Income" : "Expense"}
-              </button>
-            ))}
-          </div>
+          <Label>Type</Label>
+          <SegmentedControl
+            fullWidth
+            value={type}
+            onChange={setType}
+            options={[
+              { value: "income", label: "Income" },
+              { value: "expense", label: "Expense" },
+            ]}
+          />
         </div>
 
         <div className="flex flex-col gap-3">
-          <p className="text-body-sm font-semibold text-ink">Color</p>
+          <Label>Color</Label>
           <div className="flex flex-wrap gap-2">
             {SWATCHES.map((swatch) => (
               <button
-                key={swatch}
+                key={swatch.name}
                 type="button"
-                aria-label={`Select color ${swatch}`}
-                onClick={() => setColor(swatch)}
-                className="flex size-8 items-center justify-center rounded-full"
-                style={{
-                  backgroundColor: swatch,
-                  outline: color === swatch ? "2px solid var(--color-ink)" : "none",
-                  outlineOffset: 2,
-                }}
+                aria-label={`Select color ${swatch.name}`}
+                aria-pressed={color === swatch.value}
+                onClick={() => setColor(swatch.value)}
+                className={cn(
+                  "flex size-8 items-center justify-center rounded-full ring-offset-2 ring-offset-card transition-shadow",
+                  color === swatch.value && "ring-2 ring-ink"
+                )}
+                style={{ backgroundColor: swatch.value }}
               />
             ))}
           </div>

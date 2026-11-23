@@ -5,6 +5,7 @@ import { Drawer } from "@/components/ui/Drawer";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Select } from "@/components/ui/Select";
+import { Label } from "@/components/ui/Label";
 import { useCreateStaffMember } from "@/hooks/use-staff";
 import type { StaffRole } from "@/types";
 
@@ -66,9 +67,7 @@ export function AddStaffModal({ open, onClose }: { open: boolean; onClose: () =>
     >
       <div className="flex flex-col gap-5">
         <div className="flex flex-col gap-2">
-          <label className="text-body-sm font-semibold text-ink" htmlFor="staff-name">
-            Full name
-          </label>
+          <Label htmlFor="staff-name">Full name</Label>
           <Input
             id="staff-name"
             placeholder="e.g. Rahul Varma"
@@ -78,9 +77,7 @@ export function AddStaffModal({ open, onClose }: { open: boolean; onClose: () =>
           />
         </div>
         <div className="flex flex-col gap-2">
-          <label className="text-body-sm font-semibold text-ink" htmlFor="staff-email">
-            Email
-          </label>
+          <Label htmlFor="staff-email">Email</Label>
           <Input
             id="staff-email"
             type="email"
@@ -91,9 +88,9 @@ export function AddStaffModal({ open, onClose }: { open: boolean; onClose: () =>
           />
         </div>
         <div className="flex flex-col gap-2">
-          <label className="text-body-sm font-semibold text-ink" htmlFor="staff-phone">
+          <Label htmlFor="staff-phone">
             Phone <span className="text-ink-faint">(optional)</span>
-          </label>
+          </Label>
           <Input
             id="staff-phone"
             placeholder="+91 98765-43210"
@@ -102,9 +99,7 @@ export function AddStaffModal({ open, onClose }: { open: boolean; onClose: () =>
           />
         </div>
         <div className="flex flex-col gap-2">
-          <label className="text-body-sm font-semibold text-ink" htmlFor="staff-role">
-            Role
-          </label>
+          <Label htmlFor="staff-role">Role</Label>
           <Select
             id="staff-role"
             value={role}

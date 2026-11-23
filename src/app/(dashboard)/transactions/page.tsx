@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { Input } from "@/components/ui/Input";
 import { Select } from "@/components/ui/Select";
+import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
 import {
   Table,
   TableBody,
@@ -20,7 +21,7 @@ import { AddTransactionModal } from "@/components/features/transactions/AddTrans
 import { useTransactions, useDeleteTransaction } from "@/hooks/use-transactions";
 import { useCategories } from "@/hooks/use-categories";
 import { formatCurrency, formatDate } from "@/lib/utils";
-import type { TransactionType } from "@/types";
+import type { Transaction, TransactionType } from "@/types";
 
 export default function TransactionsPage() {
   const [page, setPage] = useState(1);
@@ -28,6 +29,7 @@ export default function TransactionsPage() {
   const [type, setType] = useState<TransactionType | "">("");
   const [categoryId, setCategoryId] = useState("");
   const [addOpen, setAddOpen] = useState(false);
+  const [pendingDelete, setPendingDelete] = useState<Transaction | null>(null);
   const limit = 10;
 
   const { data, isLoading, isPlaceholderData } = useTransactions({
@@ -133,8 +135,8 @@ export default function TransactionsPage() {
                   <TableCell>
                     <button
                       aria-label="Delete transaction"
-                      onClick={() => deleteTransaction.mutate(t.id)}
-                      className="text-ink-faint hover:text-danger"
+                      onClick={() => setPendingDelete(t)}
+                      className="rounded-[var(--radius-sm)] text-ink-faint transition-colors hover:text-danger focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ring)]"
                     >
                       <Trash2 className="size-4" />
                     </button>
@@ -181,6 +183,22 @@ export default function TransactionsPage() {
       )}
 
       <AddTransactionModal open={addOpen} onClose={() => setAddOpen(false)} />
+
+      <ConfirmDialog
+        open={!!pendingDelete}
+        title="Delete this transaction?"
+        description={
+          pendingDelete
+            ? `${pendingDelete.customerName} · ${formatCurrency(pendingDelete.amount)}. This can't be undone.`
+            : undefined
+        }
+        loading={deleteTransaction.isPending}
+        onClose={() => setPendingDelete(null)}
+        onConfirm={() => {
+          if (!pendingDelete) return;
+          deleteTransaction.mutate(pendingDelete.id, { onSuccess: () => setPendingDelete(null) });
+        }}
+      />
     </>
   );
 }
